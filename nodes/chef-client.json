@@ -1,0 +1,8 @@
+{ 
+	"run_list": [
+		"recipe[mysql]",
+		"recipe[keystone]",
+		"recipe[glance]"
+	] 
+
+}
