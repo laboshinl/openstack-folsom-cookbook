@@ -1,7 +1,0 @@
-set[:keystone][:mysql_password]="root"
-set[:keystone][:mysql_host]="127.0.0.1"
-set[:keystone][:token]="admin"
-set[:keystone][:password]="admin"
-set[:keystone][:email]="please@fix.me"
-set[:keystone][:nova_api_ip]="127.0.0.1"
-set[:keystone][:glance_ip]="127.0.0.1"
