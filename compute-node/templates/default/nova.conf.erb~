@@ -28,9 +28,10 @@
 --novncproxy_base_url=http://<%= node[:controller][:public_ip] %>:6080/vnc_auto.html
 
 # openvswitch integration
---linuxnet_interface_driver=nova.network.linux_net.LinuxOVSInterfaceDriver
---libvirt_vif_type=ethernet
---libvirt_vif_driver=nova.virt.libvirt.vif.LibvirtOpenVswitchDriver
+#--linuxnet_ovs_integration_bridge=ovs-br
+#--linuxnet_interface_driver=nova.network.linux_net.LinuxOVSInterfaceDriver
+#--libvirt_vif_type=ethernet
+#--libvirt_vif_driver=nova.virt.libvirt.vif.LibvirtOpenVswitchDriver
 
 # network specific settings
 --network_manager=nova.network.manager.VlanManager

@@ -39,3 +39,4 @@ end
 service "apache2" do
 action :restart
 supports :status => true, :restart => true, :start => true
+end

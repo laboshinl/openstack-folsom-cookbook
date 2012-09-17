@@ -11,6 +11,9 @@ package "nova-compute" do
 	action :install
 end
 
+package "vlan" do 
+	action :install
+
 template "/etc/nova/nova-compute.conf" do
 	source "nova-compute.conf.erb"
 	owner "nova"
