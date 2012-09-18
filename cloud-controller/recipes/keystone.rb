@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: keystone
-# Recipe:: default
+# Cookbook Name:: cloud-controller
+# Recipe:: keystone
 #
 # Copyright 2012, RTC
 #

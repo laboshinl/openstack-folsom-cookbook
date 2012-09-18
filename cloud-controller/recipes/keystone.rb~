@@ -11,10 +11,6 @@ package "keystone" do
   action :install
 end
 
-package "python-mysqldb" do
-  action :install
-end
-
 service "keystone" do
 action :nothing
 supports :status => true, :restart => true, :start => true 
