@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-package "glance" do
+package "glance glance-api glance-client glance-common glance-registry python-glance python-keystone python-swift" do
 	action :install
 end
 

@@ -19,7 +19,7 @@
 # using this capability.
 #
 # This is enabled by default, uncomment this to disable it
-listen_tls = 0
+#listen_tls = 0
 
 # Listen for unencrypted TCP connections on the public TCP/IP port.
 # NB, must pass the --listen flag to the libvirtd process for this to
@@ -30,7 +30,7 @@ listen_tls = 0
 # DIGEST_MD5 and GSSAPI (Kerberos5)
 #
 # This is disabled by default, uncomment this to enable it.
-listen_tcp = 1
+#listen_tcp = 1
 
 
 
@@ -143,7 +143,7 @@ auth_unix_rw = "none"
 # Don't do this outside of a dev/test scenario. For real world
 # use, always enable SASL and use the GSSAPI or DIGEST-MD5
 # mechanism in /etc/sasl2/libvirt.conf
-auth_tcp = "none"
+#auth_tcp = "sasl"
 
 # Change the authentication scheme for TLS sockets.
 #

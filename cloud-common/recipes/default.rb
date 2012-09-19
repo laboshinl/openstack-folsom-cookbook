@@ -9,3 +9,4 @@
 
 include_recipe "cloud-common::openvswitch"
 include_recipe "cloud-common::python-mysql"
+include_recipe "cloud-common::nfs"

@@ -8,7 +8,7 @@ expect daemon
 respawn
 
 # daemonize
-env libvirtd_opts="-d -l"
+env libvirtd_opts="-d"
 # whether libvirtd should run at boot/shutdown
 env start_libvirtd="yes"
 # by default wait 30 seconds for vms to shut down

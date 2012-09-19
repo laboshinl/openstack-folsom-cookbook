@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: keystone
-# Recipe:: default
+# Cookbook Name:: cloud-controller
+# Recipe:: keystone
 #
 # Copyright 2012, RTC
 #
@@ -39,6 +39,7 @@ bash "db_sync" do
 end
 
 bash "create_users" do
+not_if("mysql -uroot -p#{node[:mysql][:password]} keystone -e 'SELECT * FROM user' | grep admin")
 code <<-USERS
   ADMIN_PASSWORD=#{node[:keystone][:password]}
   ADMIN_EMAIL=#{node[:keystone][:email]} 
@@ -49,7 +50,7 @@ code <<-USERS
                                     --pass="$ADMIN_PASSWORD" \
                                     --email=$ADMIN_EMAIL \
 				    | awk '/ id / { print $4 }')
-  ADMIN_ROLE=$(keystone role-create --name=$ADMIN_USER_NAME | awk '/ id / { print $4 }')
+  ADMIN_ROLE=$(keystone role-create --name=admin | awk '/ id / { print $4 }')
   keystone user-role-add --user $ADMIN_USER --role $ADMIN_ROLE --tenant_id $ADMIN_TENANT
 USERS
 end

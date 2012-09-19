@@ -43,6 +43,7 @@ bash "vlan-enable" do
 end
 
 bash "create-bridge" do
+	not_if("brctl show | brctl show | grep br-int")
 	code <<-CREATE
 	ovs-vsctl add-br br-int
 	CREATE

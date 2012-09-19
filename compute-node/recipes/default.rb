@@ -32,20 +32,42 @@ template "/etc/nova/nova.conf" do
 	mode "0600"
 end
 
-service "libvirt-bin" do
-	action :nothing
-	supports :status => true, :restart => true, :start => true 
-end
-
 template "/etc/libvirt/qemu.conf" do
 	source "qemu.conf.erb"
 	owner "nova"
 	group "nova"
 	mode "0600"
-	notifies :restart, resources(:service => "libvirt-bin"), :immediately
+end
+
+template "/etc/libvirt/libvirtd.conf" do
+	source "libvirtd.conf.erb"
+	owner "root"
+	group "root"
+	mode "0644"
+end
+
+template "/etc/init/libvirt-bin.conf" do
+	source "libvirt-bin.conf.erb"
+	owner "root"
+	group "root"
+	mode "0644"
+end
+
+template "/etc/default/libvirt-bin" do
+	source "libvirt-bin.erb"
+	owner "root"
+	group "root"
+	mode "0644"
+end
+
+service "libvirt-bin" do
+	action :restart
+	supports :status => true, :restart => true, :start => true 
 end
 
 service "nova-compute" do
 	action :restart
 	supports :status => true, :restart => true, :start => true 
 end
+
+

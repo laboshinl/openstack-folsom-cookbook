@@ -41,4 +41,9 @@ bash "vlan-enable" do
 	echo "8021q" >> /etc/modules
 	VLAN
 end
-	
+
+bash "create-bridge" do
+	code <<-CREATE
+	ovs-vsctl add-br br-int
+	CREATE
+end
