@@ -7,6 +7,14 @@
 # All rights reserved - Do Not Redistribute
 #
 
+bash "delete" do
+	code <<-DELETE
+	if [ -f /etc/nova/nova-compute.conf ]; then rm /etc/nova/nova-compute.conf; fi
+	if [ -f /etc/nova/nova.conf ]; then rm /etc/nova/nova.conf; fi
+	if [ -f /etc/nova/api-paste.ini ]; then rm /etc/nova/api-paste.ini; fi
+	DELETE
+end
+
 package "nova-compute" do
 	action :install
 end
@@ -70,4 +78,5 @@ service "nova-compute" do
 	supports :status => true, :restart => true, :start => true 
 end
 
+include_recipe "compute-node::nfs"
 

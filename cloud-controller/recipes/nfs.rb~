@@ -16,6 +16,13 @@ service "nfs-kernel-server" do
 	supports :status => true, :restart => true, :start => true 
 end
 
+directory "/var/export/nova" do
+  owner "nova"
+  group "nova"
+  mode 0755
+  recursive true
+end
+
 template "/etc/exports" do
 	source "exports.erb"
 	owner "root"

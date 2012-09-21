@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cloud-controller
-# Recipe:: rabbitmq
+# Recipe:: nova
 #
 # Copyright 2012, RTC
 #
@@ -30,6 +30,10 @@ package "nova-scheduler" do
 	action :install
 end
 
+package "nova-consoleauth" do
+	action :install
+end
+
 template "/etc/nova/nova-compute.conf" do
 	source "nova-compute.conf.erb"
 	owner "nova"
@@ -51,6 +55,12 @@ template "/etc/nova/nova.conf" do
 	mode "0600"
 end
 
+bash "database" do
+	code <<-SQL
+	nova-manage db sync
+	SQL
+end 
+
 service "nova-api" do
 	action :restart
 end
@@ -62,3 +72,21 @@ end
 service "nova-scheduler" do
 	action :restart
 end
+
+service "nova-cert" do
+	action :restart
+end
+
+service "nova-objectstore" do
+	action :restart
+end
+
+service "nova-volume" do
+	action :restart
+end
+
+bash "network" do
+	code <<-CREATE
+	nova-manage network create private 172.16.0.0/16 256 256
+	CREATE
+end 

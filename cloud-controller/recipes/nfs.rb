@@ -19,7 +19,7 @@ end
 directory "/var/export/nova" do
   owner "nova"
   group "nova"
-  mode 0755
+  mode 0777
   recursive true
 end
 
