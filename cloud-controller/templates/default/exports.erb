@@ -7,5 +7,5 @@
 # Example for NFSv4:
 # /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
 # /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
- /var/export/nova <%= node[:controller][:private_ip] %>/<%= node[:controller][:private_netmask] %>(rw,sync,no_root_squash,no_subtree_check)
+ /var/lib/nova/instances <%= node[:controller][:private_ip] %>/<%= node[:controller][:private_netmask] %>(rw,sync,no_root_squash,no_subtree_check)
 
