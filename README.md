@@ -20,3 +20,9 @@ set[:keystone][:email]="please@fix.me"
 ```
 Usage
 -----
+```ruby
+$ nova-manage floating create 8.8.8.0
+$ nova secgroup-add-rule default icmp -1 -1 -s 0.0.0.0/0
+$ nova secgroup-add-rule default tcp 22 22 -s 0.0.0.0/0
+```
+
