@@ -8,9 +8,9 @@
 #
 
 ["apache2", "memcached", "libapache2-mod-wsgi", "openstack-dashboard"].each do |pkg|
-	package pkg do
-		action: install
-	end     
+  package pkg do
+    action: install
+  end     
 end
 
 template "/etc/apache2/conf.d/openstack-dashboard.conf" do

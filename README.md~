@@ -1,20 +1,14 @@
 Openstack cookbooks for Ubuntu 12.04
-====================================
-
-Installation
-------------------------------------
-* Install base Ubuntu 12.04 
-* Configure network interfaces 
+=========
 
 Features
-------------------------------------
-* LVM for images & instances 
-* NFS for live migrations
+--------
+* Configured NFS for live migrations
 * Openvswitch integration
-* Private network for services
+* Private network for comunications between nodes
 
 Attributes
-------------------------------------
+---------
 ```ruby
 set[:mysql][:password]="my_super_secret"
 set[:controller][:vg_name]="my_vg_name"
@@ -27,7 +21,7 @@ set[:keystone][:email]="please@fix.me"
 
 ```
 Usage
----------------------------------------
+-----
 ```ruby
 $ nova-manage floating create 8.8.8.0
 $ nova secgroup-add-rule default icmp -1 -1  0.0.0.0/0

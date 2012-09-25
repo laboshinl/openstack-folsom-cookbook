@@ -1,13 +1,13 @@
-set[:mysql][:password]="root"
+set[:mysql][:password]="my_super_secret"
 
-set[:controller][:vg_name]="vg0"
+set[:controller][:vg_name]="my_vg_name"
 
-set[:controller][:private_ip]="195.208.113.236"
-set[:controller][:public_ip]="195.208.113.236"
+set[:controller][:private_ip]="10.10.10.10"
+set[:controller][:public_ip]="8.8.8.8"
 set[:controller][:private_netmask]="8"
 
-set[:keystone][:token]="admin"
-set[:keystone][:password]="admin"
+set[:keystone][:token]="my_super_secret"
+set[:keystone][:password]="my_super_secret"
 set[:keystone][:email]="please@fix.me"
 
 
