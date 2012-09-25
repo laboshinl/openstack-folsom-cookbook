@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: mysql
-# Recipe:: default
+# Cookbook Name:: cloud-contoller
+# Recipe:: mysql
 #
 # Copyright 2012, RTC
 #
@@ -46,27 +46,27 @@ end
 
 bash "create_nova" do
 	not_if("mysql -uroot -p#{node[:mysql][:password]} -e 'SHOW DATABASES' | grep nova")
-	code <<-NOVA
-	mysql -uroot -p#{node[:mysql][:password]} -e "CREATE DATABASE nova;"
-	NOVA
+		code <<-NOVA
+			mysql -uroot -p#{node[:mysql][:password]} -e "CREATE DATABASE nova;"
+		NOVA
 end
 
 bash "create_glance" do
 	not_if("mysql -uroot -p#{node[:mysql][:password]} -e 'SHOW DATABASES' | grep glance")
-	code <<-GLANCE
-	mysql -uroot -p#{node[:mysql][:password]} -e "CREATE DATABASE glance;"
-	GLANCE
+		code <<-GLANCE
+			mysql -uroot -p#{node[:mysql][:password]} -e "CREATE DATABASE glance;"
+		GLANCE
 end
 
 bash "create_keystone" do
 	not_if("mysql -uroot -p#{node[:mysql][:password]} -e 'SHOW DATABASES' | grep keystone")
-	code <<-KEYSTONE
-	mysql -uroot -p#{node[:mysql][:password]} -e "CREATE DATABASE keystone;"
-	KEYSTONE
+		code <<-KEYSTONE
+			mysql -uroot -p#{node[:mysql][:password]} -e "CREATE DATABASE keystone;"
+		KEYSTONE
 end
 
 bash "allow" do
 	code <<-GRANT
-	mysql -uroot -p#{node[:mysql][:password]} -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '#{node[:mysql][:password]}';"
+		mysql -uroot -p#{node[:mysql][:password]} -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '#{node[:mysql][:password]}';"
 	GRANT
 end

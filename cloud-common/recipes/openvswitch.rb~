@@ -15,7 +15,6 @@ package "openvswitch-brcompat" do
 	action :install
 end
 
-
 template "/etc/default/openvswitch-switch" do
 	source "openvswitch-switch_2.erb"
 	owner "root"

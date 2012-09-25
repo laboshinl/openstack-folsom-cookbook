@@ -6,33 +6,18 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-package "nova-cert" do
-	action :install
-end
 
-package "nova-api" do
-	action :install
-end
+packages = Array.[]("nova-cert", "nova-api", "nova-network", "nova-objectstore", "nova-volume", "nova-scheduler", "nova-consoleauth" )
 
-package "nova-network" do
-	action :install
-end
+$i=0;
+$num=7;
 
-package "nova-objectstore" do
-	action :install
-end
-
-package "nova-volume" do 
-	action :install
-end 
-
-package "nova-scheduler" do
-	action :install
-end
-
-package "nova-consoleauth" do
-	action :install
-end
+begin
+        package packages.at($i) do
+                action :install
+        end
+        $i+=1;
+end while $i < $num
 
 template "/etc/nova/nova-compute.conf" do
 	source "nova-compute.conf.erb"
@@ -57,36 +42,22 @@ end
 
 bash "database" do
 	code <<-SQL
-	nova-manage db sync
+		nova-manage db sync
 	SQL
 end 
 
-service "nova-api" do
-	action :restart
-end
+$i=0;
 
-service "nova-network" do 
-	action :restart
-end
-
-service "nova-scheduler" do
-	action :restart
-end
-
-service "nova-cert" do
-	action :restart
-end
-
-service "nova-objectstore" do
-	action :restart
-end
-
-service "nova-volume" do
-	action :restart
-end
+begin
+        service packages.at($i) do
+                action :restart
+        end
+        $i+=1;
+end while $i < $num
 
 bash "network" do
+	not_if("nova-manage network list | grep 172.16.0.0")
 	code <<-CREATE
-	nova-manage network create private 172.16.0.0/16 256 256
+		nova-manage network create private 172.16.0.0/16 256 256
 	CREATE
 end 

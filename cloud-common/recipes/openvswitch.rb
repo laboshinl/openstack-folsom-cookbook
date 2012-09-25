@@ -31,7 +31,6 @@ end
 
 service "openvswitch-switch" do
 	action :restart
-	supports :status => true, :restart => true, :start => true  
 end
 
 bash "create-bridge" do

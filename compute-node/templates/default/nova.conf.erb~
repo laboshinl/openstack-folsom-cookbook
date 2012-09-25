@@ -42,3 +42,4 @@
 --connection_type=libvirt
 --root_helper=sudo nova-rootwrap
 --verbose
+--volume_group=<%= node[:controller][:vg_name] %>

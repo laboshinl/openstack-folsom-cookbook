@@ -6,14 +6,13 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-#include_recipe "cloud-common::default"
-include_recipe "cloud-controller::nfs"      #done
-include_recipe "cloud-controller::mysql"    #done
-include_recipe "cloud-controller::rabbitmq" #done
-include_recipe "cloud-controller::keystone" #done
-include_recipe "cloud-controller::glance"   #done
+include_recipe "cloud-controller::nfs"      
+include_recipe "cloud-controller::mysql"    
+include_recipe "cloud-controller::rabbitmq" 
+include_recipe "cloud-controller::keystone" 
+include_recipe "cloud-controller::glance"   
 include_recipe "cloud-controller::nova"     
-include_recipe "cloud-controller::novnc"    #done
-include_recipe "cloud-controller::dashboard"#done
-include_recipe "cloud-controller::lvm"      #done
+include_recipe "cloud-controller::novnc"    
+include_recipe "cloud-controller::dashboard"
+include_recipe "cloud-controller::lvm"      
 
