@@ -51,7 +51,7 @@ bash "create_users" do
   			keystone user-role-add --user $ADMIN_USER --role $ADMIN_ROLE --tenant_id $ADMIN_TENANT
 			cat >> /root/stackrc <<EOF
 			export OS_AUTH_URL=http://localhost:5000/v2.0
-			export OS_TENANT_ID=$ADMIN_TENAN
+			export OS_TENANT_ID=$ADMIN_TENANT
 			export OS_TENANT_NAME=admin
 			export OS_USERNAME=admin
 			export OS_PASSWORD=#{node[:keystone][:password]}
