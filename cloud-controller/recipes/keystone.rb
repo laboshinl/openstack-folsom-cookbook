@@ -47,7 +47,15 @@ bash "create_users" do
   			ADMIN_TENANT=$(keystone tenant-create --name=admin | awk '/ id / { print $4 }')
   			ADMIN_USER=$(keystone user-create --name=admin --pass=#{node[:keystone][:password]} --email=#{node[:keystone][:email]} | awk '/ id / { print $4 }')
   			ADMIN_ROLE=$(keystone role-create --name=admin | awk '/ id / { print $4 }')
+			keystone role-create --name=Member
   			keystone user-role-add --user $ADMIN_USER --role $ADMIN_ROLE --tenant_id $ADMIN_TENANT
+			cat >> /root/stackrc <<EOF
+			export OS_AUTH_URL=http://localhost:5000/v2.0
+			export OS_TENANT_ID=$ADMIN_TENAN
+			export OS_TENANT_NAME=admin
+			export OS_USERNAME=admin
+			export OS_PASSWORD=#{node[:keystone][:password]}
+			EOF
 		USERS
 end
 

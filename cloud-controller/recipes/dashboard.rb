@@ -9,7 +9,7 @@
 
 ["apache2", "memcached", "libapache2-mod-wsgi", "openstack-dashboard"].each do |pkg|
 	package pkg do
-		action: install
+		action :install
 	end     
 end
 

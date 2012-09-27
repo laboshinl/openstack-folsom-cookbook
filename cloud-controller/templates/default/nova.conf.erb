@@ -9,7 +9,7 @@
 --scheduler_driver=nova.scheduler.simple.SimpleScheduler
 --s3_host=<%= node[:controller][:public_ip] %>
 --ec2_host=<%= node[:controller][:public_ip] %>
---rabbit_host=<%= node[:controller][:public_ip] %>
+--rabbit_host=<%= node[:controller][:private_ip] %>
 --cc_host=<%= node[:controller][:public_ip] %>
 --nova_url=http://<%= node[:controller][:public_ip] %>:8774/v1.1/
 --routing_source_ip=<%= node[:controller][:public_ip] %>
@@ -36,6 +36,7 @@
 --network_manager=nova.network.manager.VlanManager
 --public_interface=eth0
 --vlan_interface=eth1
+--iscsi_ip_address=<%= node[:controller][:private_ip] %>
 --flat_injected=False
 --force_dhcp_release
 --iscsi_helper=tgtadm
