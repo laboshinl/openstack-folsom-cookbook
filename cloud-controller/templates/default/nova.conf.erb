@@ -34,8 +34,8 @@
 
 # network specific settings
 --network_manager=nova.network.manager.VlanManager
---public_interface=eth0
---vlan_interface=eth1
+--public_interface=<%= node[:controller][:public_interface] %>
+--vlan_interface=<%= node[:controller][:private_interface] %>
 --iscsi_ip_address=<%= node[:controller][:private_ip] %>
 --flat_injected=False
 --force_dhcp_release
