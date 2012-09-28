@@ -14,5 +14,6 @@ include_recipe "cloud-controller::glance"
 include_recipe "cloud-controller::nova"     
 include_recipe "cloud-controller::novnc"    
 include_recipe "cloud-controller::dashboard"
-include_recipe "cloud-controller::lvm"      
+include_recipe "cloud-controller::lvm"
+include_recipe "cloud-controller::mydns"      
 

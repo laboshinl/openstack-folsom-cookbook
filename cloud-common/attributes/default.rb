@@ -12,4 +12,4 @@ set[:keystone][:token]="my_super_secret"
 set[:keystone][:password]="my_super_secret"
 set[:keystone][:email]="please@fix.me"
 
-
+set[:dns][:zone]="cloud.domain.com"

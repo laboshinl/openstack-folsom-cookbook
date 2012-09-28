@@ -66,7 +66,9 @@ bash "create_keystone" do
 end
 
 bash "allow" do
-	code <<-GRANT
+	code <<-EOF
 		mysql -uroot -p#{node[:mysql][:password]} -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '#{node[:mysql][:password]}';"
-	GRANT
+	EOF
 end
+
+
