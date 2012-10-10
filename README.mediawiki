@@ -1,9 +1,4 @@
-<h1>Openstack cookbooks for Ubuntu 12.04</h1>
-
-= Installation =
-
-# Install base Ubuntu 12.04 
-# Configure network interfaces 
+<h1>Openstack "Folsom" cookbooks for Ubuntu 12.04</h1>
 
 = Features =
 
@@ -11,6 +6,32 @@
 * NFS for live migrations
 * Openvswitch integration
 * Private network for services
+
+= Installation =
+
+# Install base Ubuntu 12.04 on all your nodes (base ubuntu server + openssh-server) <br /> On disk-partitioning stage select "Use entire disk and configure LVM" & set small root partition. In most cases about 20G would be enough.  
+# Configure network interfaces in /etc/network/interfaces like this:
+<pre>
+Management Network
+auto eth0
+iface eth0 inet static
+address 192.168.0.1
+netmask 255.255.255.0
+gateway 192.168.0.254
+dns-nameservers 8.8.8.8
+# VMs Networks with OVS in tunnel mode
+auto eth1
+iface eth1 inet static
+address 10.0.0.3
+netmask 255.255.255.0
+# Public Bridge
+auto eth2
+iface eth2 inet manual
+up ifconfig $IFACE 0.0.0.0 up
+up ip link set $IFACE promisc on
+down ip link set $IFACE promisc off
+down ifconfig $IFACE down
+</pre>
 
 = Attributes =
 
