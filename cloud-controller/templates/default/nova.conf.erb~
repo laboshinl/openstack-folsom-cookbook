@@ -56,3 +56,4 @@ state_path=/var/lib/nova
 lock_path=/var/lock/nova
 root_helper=sudo nova-rootwrap
 verbose=True
+volume_group=<%= node[:controller][:vg_name] %>

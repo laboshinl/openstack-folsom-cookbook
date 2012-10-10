@@ -38,10 +38,10 @@ network_manager=nova.network.manager.VlanManager
 public_interface=<%= node[:controller][:public_interface] %>
 vlan_interface=<%= node[:controller][:private_interface] %>
 flat_injected=False
-force_dhcp_release=True
+force_dhcp_release
 iscsi_helper=tgtadm
 connection_type=libvirt
 iscsi_ip_address=<%= node[:controller][:private_ip] %>
 root_helper=sudo nova-rootwrap
-verbose=True
+verbose
 volume_group=<%= node[:controller][:vg_name] %>
