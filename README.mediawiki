@@ -1,11 +1,13 @@
 <h1>Openstack "Folsom" cookbooks for Ubuntu 12.04</h1>
 
+
 = Features =
 
 * LVM for images & instances 
 * NFS for live migrations
-* Openvswitch integration
-* Private network for services
+* Quantum manager
+* Private network for internal services
+* DNS for instances
 
 = Installation =
 
@@ -53,11 +55,35 @@ set[:keystone][:email]="please@fix.me"
 set[:dns][:zone]="cloud.domain.com"
 </pre> 
 
-= Usage =
+= Example node.json = 
+* Cloud controller
 
 <pre>
-$ nova-manage floating create 8.8.8.0
-$ nova secgroup-add-rule default icmp -1 -1  0.0.0.0/0
-$ nova secgroup-add-rule default tcp 22 22  0.0.0.0/0
+{ "run_list": [
+  "recipe[cloud-common]",
+  "recipe[cloud-controller]"
+  ] 
+}
 </pre>
+
+* Compute node
+<pre>
+{ "run_list": [
+  "recipe[cloud-common]",
+  "recipe[compute-node]"
+  ] 
+}
+</pre>
+
+* Cloud controller is also compute node (all in one)
+<pre>
+{ "run_list": [
+  "recipe[cloud-common]",
+  "recipe[cloud-controller]",
+  "recipe[compute-node]"
+  ] 
+}
+</pre>
+
+
 
