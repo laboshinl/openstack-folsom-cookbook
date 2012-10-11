@@ -51,6 +51,27 @@ bash "create_nova" do
 		NOVA
 end
 
+bash "create_cinder" do
+	not_if("mysql -uroot -p#{node[:mysql][:password]} -e 'SHOW DATABASES' | grep cinder")
+		code <<-CINDER
+			mysql -uroot -p#{node[:mysql][:password]} -e "CREATE DATABASE cinder;"
+		CINDER
+end
+
+bash "create_quantum" do
+	not_if("mysql -uroot -p#{node[:mysql][:password]} -e 'SHOW DATABASES' | grep quantum")
+		code <<-QUANTUM
+			mysql -uroot -p#{node[:mysql][:password]} -e "CREATE DATABASE quantum;"
+		QUANTUM
+end
+
+bash "create_swift" do
+	not_if("mysql -uroot -p#{node[:mysql][:password]} -e 'SHOW DATABASES' | grep swift")
+		code <<-SWIFT
+			mysql -uroot -p#{node[:mysql][:password]} -e "CREATE DATABASE swift;"
+		SWIFT
+end
+
 bash "create_glance" do
 	not_if("mysql -uroot -p#{node[:mysql][:password]} -e 'SHOW DATABASES' | grep glance")
 		code <<-GLANCE

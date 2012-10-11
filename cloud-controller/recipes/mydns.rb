@@ -50,7 +50,7 @@ dpkg_package "mydns" do
 end
 
 template "/etc/mydns.conf" do
-	source "mydns.conf.erb"
+	source "mydns/mydns.conf.erb"
 	owner "root"
 	group "root"
 	mode "0644"

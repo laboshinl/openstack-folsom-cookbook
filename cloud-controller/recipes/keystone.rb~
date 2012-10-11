@@ -16,14 +16,14 @@ service "keystone" do
 end
  
 template "/etc/keystone/keystone.conf" do
-	source "keystone/keystone.conf.erb"
+	source "keystone.conf.erb"
 	owner "root"
 	group "root"
 	mode "0644"
 end
 
 template "/etc/keystone/default_catalog.templates" do
-	source "keystone/default_catalog.templates.erb"
+	source "default_catalog.templates.erb"
 	owner "root"
 	group "root"
 	mode "0644"

@@ -1,4 +1,4 @@
-["cinder-api", "cinder-scheduler", "cinder-volume", "iscsitarget", "open-iscsi", "iscsitarget-dkms", "python-cinderclisent"].each do |pkg|
+["cinder-api", "cinder-scheduler", "cinder-volume", "iscsitarget", "open-iscsi", "iscsitarget-dkms", "python-cinderclient"].each do |pkg|
 	package pkg do
 		action :install
 	end

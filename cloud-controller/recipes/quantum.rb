@@ -5,35 +5,35 @@
 end
 
 template "/etc/quantum/quantum.conf" do
-	source "quantum.conf.erb"
+	source "quantum/quantum.conf.erb"
 	owner "quantum"
 	group "quantum"
 	mode "0644"
 end
 
 template "/etc/quantum/plugins/openvswitch/ovs_quantum_plugin.ini" do
-	source "ovs_quantum_plugin.ini.erb"
+	source "quantum/ovs_quantum_plugin.ini.erb"
 	owner "quantum"
 	group "quantum"
 	mode "0644"
 end
 
 template "/etc/quantum/l3_agent.ini" do
-	source "l3_agent.ini.erb"
+	source "quantum/l3_agent.ini.erb"
 	owner "quantum"
 	group "quantum"
 	mode "0644"
 end
 
 template "/etc/quantum/dhcp_agent.ini" do
-	source "dhcp_agent.ini.erb"
+	source "quantum/dhcp_agent.ini.erb"
 	owner "quantum"
 	group "quantum"
 	mode "0644"
 end
 
 template "/etc/quantum/api-paste.ini" do
-	source "quantum-api-paste.ini.erb"
+	source "quantum/api-paste.ini.erb"
 	owner "quantum"
 	group "quantum"
 	mode "0644"

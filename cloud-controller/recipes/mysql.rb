@@ -20,7 +20,7 @@ execute "preseed mysql" do
 end
 
 template "/var/cache/local/preseeding/mysql-server.seed" do
-	source "mysql-server.seed.erb"
+	source "mysql/mysql-server.seed.erb"
 	owner "root"
 	group "root"
 	mode "0600"
@@ -37,7 +37,7 @@ service "mysql" do
 end
 
 template "/etc/mysql/my.cnf" do
-	source "my.cnf.erb"
+	source "mysql/my.cnf.erb"
 	owner "root"
 	group "root"
 	mode "0600"

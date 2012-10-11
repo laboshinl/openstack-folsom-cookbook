@@ -19,14 +19,14 @@ service "open-iscsi" do
 end
 
 template "/etc/cinder/cinder.conf" do
-	source "cinder.conf.erb"
+	source "cinder/cinder.conf.erb"
 	owner "cinder"
 	group "cinder"
 	mode "0644"
 end
 
 template "/etc/cinder/api-paste.ini" do
-	source "cinder-api-paste.ini.erb"
+	source "cinder/api-paste.ini.erb"
 	owner "cinder"
 	group "cinder"
 	mode "0644"

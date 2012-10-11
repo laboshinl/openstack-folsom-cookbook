@@ -12,7 +12,7 @@ package "nfs-kernel-server" do
 end
 
 template "/etc/exports" do
-	source "nfs/exports.erb"
+	source "exports.erb"
 	owner "root"
 	group "root"
 	mode "0644"

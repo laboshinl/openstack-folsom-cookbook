@@ -21,14 +21,14 @@ end
 
 
 template "/etc/nova/api-paste.ini" do
-	source "api-paste.ini.erb"
+	source "nova/api-paste.ini.erb"
 	owner "nova"
 	group "nova"
 	mode "0600"
 end
 
 template "/etc/nova/nova.conf" do
-	source "nova.conf.erb"
+	source "nova/nova.conf.erb"
 	owner "nova"
 	group "nova"
 	mode "0600"

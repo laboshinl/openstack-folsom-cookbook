@@ -40,3 +40,11 @@ service "glance-registry" do
 	action :restart 
 end
 
+#bash "test_image" do
+#	code <<-UPLOAD
+#		. /root/stackrc
+#		RAMDISK=$(glance add name=debian6_ramdisk disk_format=ari container_format=ari is_public=True copy_from=http://195.208.117.179/debian6/initrd.img | awk '{print $6}')
+#		KERNEL=$(glance add name=debian6_kernel disk_format=aki container_format=aki is_public=True copy_from=http://195.208.117.179/debian6/vmlinuz | awk '{print $6}')
+#		glance add name=debian6 disk_format=ami container_format=ami is_public=True ramdisk_id=$RAMDISK kernel_id=$KERNEL copy_from=http://195.208.117.179/debian6/debian6.img
+#	UPLOAD
+#end
