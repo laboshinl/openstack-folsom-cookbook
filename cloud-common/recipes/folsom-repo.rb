@@ -14,9 +14,7 @@ end
 bash "addkey" do
 	code <<-CODE
 	gpg --keyserver keyserver.ubuntu.com --recv EC4926EA
-	gpg --export --armor EC4926EA > key.key
-	apt-key add key.key
-	rm key.key
+	gpg --export --armor EC4926EA | apt-key add -
 	CODE
 end
 	 
