@@ -20,6 +20,13 @@ template "/etc/apache2/conf.d/openstack-dashboard.conf" do
 	mode "0644"
 end
 
+template "/etc/openstack-dashboard/local_settings.py" do
+	source "dashboard/local_settings.py.erb"
+	owner "root"
+	group "root"
+	mode "0644"
+end
+
 service "apache2" do
 	action :restart
 end

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cloud-common
-# Recipe:: nfs
+# Recipe:: folsom-repo
 #
 # Copyright 2012, RTC
 #
@@ -13,7 +13,7 @@ end
 
 bash "addkey" do
 	code <<-CODE
-	cat gpg --keyserver keyserver.ubuntu.com --recv 3B6F61A6
+	gpg --keyserver keyserver.ubuntu.com --recv 3B6F61A6
 	gpg --export --armor 3B6F61A6 > key.key
 	apt-key add key.key
 	rm key.key
