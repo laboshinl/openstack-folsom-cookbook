@@ -26,7 +26,7 @@ template "/etc/quantum/l3_agent.ini" do
 end
 
 template "/etc/quantum/dhcp_agent.ini" do
-	source "dhcp_agent.ini.ini.erb"
+	source "dhcp_agent.ini.erb"
 	owner "quantum"
 	group "quantum"
 	mode "0644"

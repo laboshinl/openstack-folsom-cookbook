@@ -16,20 +16,21 @@ service "openvswitch-switch" do
 end
 
 bash "create-bridge-int" do
-	not_if("brctl show | brctl show | grep br-int")
+	not_if("ovs-vsctl list-br | grep br-int")
 	code <<-CREATE
 	ovs-vsctl add-br br-int
 	CREATE
 end
 
 bash "create-bridge-ex" do
-	not_if("brctl show | brctl show | grep br-ex")
+	not_if("ovs-vsctl list-br | grep br-ex")
 	code <<-CREATE
 	ovs-vsctl add-br br-ex
 	CREATE
 end
 
 bash "set-bridges" do 
+	not_if("ovs-vsctl list-ports br-ex | grep eth2")
 	code <<-SET
 	ovs-vsctl br-set-external-id br-ex bridge-id br-ex
 	ovs-vsctl add-port br-ex eth2

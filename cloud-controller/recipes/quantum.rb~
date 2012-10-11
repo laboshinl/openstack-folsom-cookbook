@@ -38,3 +38,9 @@ template "/etc/quantum/api-paste.ini" do
 	group "quantum"
 	mode "0644"
 end
+
+["quantum-server", "quantum-plugin-openvswitch-agent", "quantum-dhcp-agent", "quantum-l3-agent"].each do |srv|
+	service srv do
+		action :restart
+	end
+end
