@@ -11,8 +11,8 @@ bash "lvcreate" do
 	code <<-CREATE
 		unit=$(vgdisplay #{node[:controller][:vg_name]} | grep Free |  awk '{print $8}')
 		size=$(vgdisplay #{node[:controller][:vg_name]} | grep Free |  awk '{print $7}')
-		images=$(echo "$size*0.25" | bc)
-		instances=$(echo "$size*0.5" | bc)
+		images=$(echo "$size*0.25" | bc | sed 's/^\./0./')
+		instances=$(echo "$size*0.5" | bc | sed 's/^\./0./')
 		lvcreate -n instances -L $instances$unit #{node[:controller][:vg_name]}
 		lvcreate -n images -L $images$unit #{node[:controller][:vg_name]}
 		mkfs.ext4 /dev/#{node[:controller][:vg_name]}/instances

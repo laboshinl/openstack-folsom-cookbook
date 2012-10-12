@@ -54,5 +54,5 @@ vncserver_listen=0.0.0.0
 logdir=/var/log/nova
 state_path=/var/lib/nova
 lock_path=/var/lock/nova
-root_helper=sudo nova-rootwrap
+root_helper=sudo nova-rootwrap /etc/nova/rootwrap.conf
 verbose=True
