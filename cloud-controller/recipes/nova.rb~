@@ -40,7 +40,7 @@ bash "database" do
 	SQL
 end 
 
-["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy"].each do |pkg|
+["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-nova-novncproxy"].each do |pkg|
 	service pkg do
 		action :restart
 	end

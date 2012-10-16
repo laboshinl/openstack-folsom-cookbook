@@ -1,0 +1,36 @@
+["swift", "swift-proxy", "swift-account", "swift-container", "swift-object", "xfsprogs", "python-pastedeploy", "rsync"].each do |pkg|
+	package pkg do
+		action :install
+	end
+end
+
+directory "/srv" do
+	mode "0755"
+	owner "swift"
+	group "swift"
+	action :create
+end
+	
+%w{node1 node2 node3 node4}.each do |dir|
+   directory "/mnt/swift-backend/#{dir}/device" do
+      mode "0775"
+      owner "swift"
+      group "swift"
+      action :create
+      recursive true
+   end
+end
+
+%w{account-server container-server object-server}.each do |dir|
+   directory "/etc/swift/#{dir}" do
+      mode "0775"
+      owner "swift"
+      group "swift"
+      action :create
+      recursive true
+   end
+end
+
+for i in {1..4}; do sudo ln -s /mnt/swift_backend/node$i /srv/node$i; done;
+sed -e "s/RSYNC_ENABLE=false/RSYNC_ENABLE=true/g" -i /etc/default/rsync
+

@@ -17,7 +17,5 @@ include_recipe "cloud-controller::dashboard"
 include_recipe "cloud-controller::lvm"
 #include_recipe "cloud-controller::mydns"
 include_recipe "cloud-controller::quantum"
-include_recipe "cloud-controller::cinder" 
-include_recipe "cloud-controller::swift"
-include_recipe "cloud-controller::munin"    
+include_recipe "cloud-controller::cinder"      
 
