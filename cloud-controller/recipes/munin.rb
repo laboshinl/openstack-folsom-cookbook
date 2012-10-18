@@ -1,9 +1,18 @@
-package "munin" do
-	action :install
+#
+# Cookbook Name:: cloud-controller
+# Recipe:: munin
+#
+# Copyright 2012, RTC
+#
+# All rights reserved - Do Not Redistribute
+#
+
+%w[munin expect].each do |pkg|
+	package pkg do
+		action :install
+	end
 end
-package "expect" do 
-	action :install 
-end
+
 template "/etc/munin/apache.conf" do
 	source "/etc/munin/apache.conf.erb"
 	owner "root"
@@ -18,17 +27,10 @@ template "/etc/munin/munin.conf" do
 	mode "0644"
 end
 
-bash "password" do
-	code <<-EOF
-expect -c "spawn htpasswd -c /etc/munin/munin-htpasswd admin; expect -nocase \"New password:\" {send \"#{node[:keystone][:password]}\r\"}; expect -nocase \"Re-type new password:\" {send \"#{node[:keystone][:password]}\r\"; interact}"
-	EOF
-end
+%x[expect -c 'spawn htpasswd -c /etc/munin/munin-htpasswd test; expect \"New password:\" {send \"#{node[:keystone][:password]}\r\"}; expect \"Re-type new password:\" {send \"#{node[:keystone][:password]}\r\"; interact}']
 
-service "apache2" do 
-	action :restart
+%w[apache2 munin-node].each do |srv|
+	service srv do
+		action :restart
+	end
 end
-
-service "munin-node" do 
-	action :restart
-end
-

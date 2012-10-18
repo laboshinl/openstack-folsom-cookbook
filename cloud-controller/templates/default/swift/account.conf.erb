@@ -1,10 +1,10 @@
 [DEFAULT]
-devices = /srv/node1
+devices = /srv/node<%= @num %>
 mount_check = false
 disable_fallocate = true
-bind_port = 6012
+bind_port = 60<%= @num %>2
 user = swift
-log_facility = LOG_LOCAL2
+log_facility = LOG_LOCAL<%= @num %>
 recon_cache_path = /var/cache/swift
 
 [pipeline:main]

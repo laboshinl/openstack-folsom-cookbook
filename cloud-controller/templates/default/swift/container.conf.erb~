@@ -2,23 +2,26 @@
 devices = /srv/node<%= @node %>
 mount_check = false
 disable_fallocate = true
-bind_port = 60<%= @node %>0
+bind_port = 60<%= @node %>1
 user = swift
 log_facility = LOG_LOCAL<%= @node %>
 recon_cache_path = /var/cache/swift
 
 [pipeline:main]
-pipeline = recon object-server
+pipeline = recon container-server
 
-[app:object-server]
-use = egg:swift#object
+[app:container-server]
+use = egg:swift#container
 
 [filter:recon]
 use = egg:swift#recon
 
-[object-replicator]
+[container-replicator]
 vm_test_mode = yes
 
-[object-updater]
+[container-updater]
 
-[object-auditor]
+[container-auditor]
+
+[container-sync]
+
