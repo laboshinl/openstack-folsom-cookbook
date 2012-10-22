@@ -30,10 +30,10 @@ bash "rr" do
 		mysql -uroot -p#{node[:mysql][:password]} nova -e 	"CREATE OR REPLACE VIEW rr AS 
 									SELECT instances.id+42000 AS id,1 AS zone, concat(hostname, '-',instances.id) AS name,
 									address AS data, 0 AS aux, 300 AS ttl, 'A' AS type
-									FROM instances,fixed_ips WHERE instances.id = fixed_ips.instance_id UNION
+									FROM instances,fixed_ips WHERE instances.uuid = fixed_ips.instance_uuid UNION
 									SELECT instances.id+69000 AS id,2 AS zone, concat(hostname, '-', instances.id) AS name,
 									floating_ips.address AS data, 0 AS aux, 300 AS ttl, 'A' AS type 
-									FROM instances,floating_ips,fixed_ips WHERE floating_ips.fixed_ip_id = fixed_ips.id AND instances.id = fixed_ips.instance_id;"
+									FROM instances,floating_ips,fixed_ips WHERE floating_ips.fixed_ip_id = fixed_ips.id AND instances.id = fixed_ips.instance_uuid;"
 	EOF
 end
 

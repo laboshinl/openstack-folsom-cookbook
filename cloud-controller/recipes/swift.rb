@@ -63,6 +63,7 @@ end
 
 bash "what" do
 code <<-EOF
+cd /etc/swift
 swift-ring-builder object.builder create 18 3 1
 swift-ring-builder container.builder create 18 3 1
 swift-ring-builder account.builder create 18 3 1
@@ -80,7 +81,7 @@ template "/etc/swift/container-server/#{num}.conf" do
 	end
 
 template "/etc/swift/object-server/#{num}.conf" do
-	source "swift/account.conf.erb"
+	source "swift/object.conf.erb"
 	owner "swift"
 	group "swift"
 	mode "0755"
@@ -120,7 +121,6 @@ bash "swift" do
 	swift-ring-builder container.builder rebalance
 	swift-ring-builder account.builder rebalance
 	swift-init main start
-	swift-init rest start
 	EOF
 end
 

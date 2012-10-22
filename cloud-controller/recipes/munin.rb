@@ -14,7 +14,7 @@
 end
 
 template "/etc/munin/apache.conf" do
-	source "/etc/munin/apache.conf.erb"
+	source "munin/apache.conf.erb"
 	owner "root"
 	group "root"
 	mode "0644"

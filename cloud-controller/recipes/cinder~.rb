@@ -1,15 +1,21 @@
-%w[cinder-api cinder-scheduler cinder-volume iscsitarget open-iscsi iscsitarget-dkms python-cinderclient].each do |pkg|
+["cinder-api", "cinder-scheduler", "cinder-volume", "iscsitarget", "open-iscsi", "iscsitarget-dkms", "python-cinderclient"].each do |pkg|
 	package pkg do
 		action :install
 	end
 end
 
-%x[sed -i 's/false/true/g' /etc/default/iscsitarget]
+bash "configure" do
+	code <<-SED
+	sed -i 's/false/true/g' /etc/default/iscsitarget
+	SED
+end
 
-%w[iscsitarget open-iscsi].each do |srv|
-	service srv do
-		action :restart
-	end
+service "iscsitarget" do
+	action :restart
+end
+
+service "open-iscsi" do 
+	action :restart
 end
 
 template "/etc/cinder/cinder.conf" do
@@ -32,7 +38,7 @@ bash "sync" do
 	SYNC
 end
 
-%w[cinder-api cinder-scheduler cinder-volume].each do |srv|
+["cinder-api", "cinder-scheduler", "cinder-volume"].each do |srv|
 	service srv do
 		action :restart
 	end
