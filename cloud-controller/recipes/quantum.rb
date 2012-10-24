@@ -4,19 +4,19 @@
 	end
 end
 
-template "/etc/quantum/quantum.conf" do
-	source "quantum/quantum.conf.erb"
-	owner "quantum"
-	group "quantum"
-	mode "0644"
-end
+#template "/etc/quantum/quantum.conf" do
+#	source "quantum/quantum.conf.erb"
+#	owner "quantum"
+#	group "quantum"
+#	mode "0644"
+#end
 
-template "/etc/quantum/plugins/openvswitch/ovs_quantum_plugin.ini" do
-	source "quantum/ovs_quantum_plugin.ini.erb"
-	owner "quantum"
-	group "quantum"
-	mode "0644"
-end
+#template "/etc/quantum/plugins/openvswitch/ovs_quantum_plugin.ini" do
+#	source "quantum/ovs_quantum_plugin.ini.erb"
+#	owner "quantum"
+#	group "quantum"
+#	mode "0644"
+#end
 
 template "/etc/quantum/l3_agent.ini" do
 	source "quantum/l3_agent.ini.erb"

@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy"].each do |pkg|
+["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy", "novnc"].each do |pkg|
 	package pkg do
 		action :install
 	end
@@ -40,7 +40,7 @@ bash "database" do
 	SQL
 end 
 
-["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy"].each do |pkg|
+["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy","novnc"].each do |pkg|
 	service pkg do
 		action :restart
 	end
