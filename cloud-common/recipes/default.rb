@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 # 
 include_recipe "cloud-common::folsom-repo"
-include_recipe "cloud-common::misc"
+include_recipe "cloud-common::ntp"
 include_recipe "cloud-common::openvswitch"
 include_recipe "cloud-common::python-mysql"
-include_recipe "cloud-common::nfs"
+

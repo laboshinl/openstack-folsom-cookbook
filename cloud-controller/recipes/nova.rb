@@ -13,11 +13,11 @@
 	end
 end
 
-["nova-common", "python-nova", "python-novaclient"].each do |pkg|
-	package pkg do
-		action :install
-	end
-end
+#["nova-common", "python-nova", "python-novaclient"].each do |pkg|
+#	package pkg do
+#		action :install
+#	end
+#end
 
 
 template "/etc/nova/api-paste.ini" do
@@ -40,7 +40,7 @@ bash "database" do
 	SQL
 end 
 
-["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy","novnc"].each do |pkg|
+["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy"].each do |pkg|
 	service pkg do
 		action :restart
 	end

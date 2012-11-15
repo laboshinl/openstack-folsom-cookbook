@@ -24,13 +24,13 @@ catalog.RegionOne.image.adminURL = http://<%= node[:controller][:public_ip] %>:9
 catalog.RegionOne.image.internalURL = http://<%= node[:controller][:public_ip] %>:9292/v1
 catalog.RegionOne.image.name = Image Service
 
-catalog.RegionOne.object_store.publicURL = http://<%= node[:controller][:public_ip] %>:8080/v1/AUTH_$(tenant_id)s
-catalog.RegionOne.object_store.adminURL = http://<%= node[:controller][:public_ip] %>:8080/
-catalog.RegionOne.object_store.internalURL = http://<%= node[:controller][:public_ip] %>:8080/v1/AUTH_$(tenant_id)s
-catalog.RegionOne.object_store.name = S3 Service
+#catalog.RegionOne.object_store.publicURL = http://<%= node[:controller][:public_ip] %>:8080/v1/AUTH_$(tenant_id)s
+#catalog.RegionOne.object_store.adminURL = http://<%= node[:controller][:public_ip] %>:8080/
+#catalog.RegionOne.object_store.internalURL = http://<%= node[:controller][:public_ip] %>:8080/v1/AUTH_$(tenant_id)s
+#catalog.RegionOne.object_store.name = S3 Service
 
-catalog.RegionOne.network.publicURL = http://<%= node[:controller][:public_ip] %>:9696
-catalog.RegionOne.network.adminURL = http://<%= node[:controller][:public_ip] %>:9696
-catalog.RegionOne.network.internalURL = http://<%= node[:controller][:public_ip] %>:9696
-catalog.RegionOne.network.name = Network Service 
+#catalog.RegionOne.network.publicURL = http://<%= node[:controller][:public_ip] %>:9696
+#catalog.RegionOne.network.adminURL = http://<%= node[:controller][:public_ip] %>:9696
+#catalog.RegionOne.network.internalURL = http://<%= node[:controller][:public_ip] %>:9696
+#catalog.RegionOne.network.name = Network Service 
 

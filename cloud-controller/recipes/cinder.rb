@@ -4,7 +4,11 @@
 	end
 end
 
-%x[sed -i 's/false/true/g' /etc/default/iscsitarget]
+bash "edit" do
+	code <<-EOF
+	sed -i 's/false/true/g' /etc/default/iscsitarget
+	EOF
+end
 
 %w[iscsitarget open-iscsi].each do |srv|
 	service srv do
