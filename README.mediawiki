@@ -14,25 +14,45 @@
 # Install base Ubuntu 12.04 on all your nodes (base ubuntu server + openssh-server) <br /> On disk-partitioning stage select "Use entire disk and configure LVM" & set small root partition. In most cases about 20G would be enough.  
 # Configure network interfaces in /etc/network/interfaces like this:
 <pre>
-Management Network
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
 auto eth0
-iface eth0 inet static
-address 192.168.0.1
-netmask 255.255.255.0
-gateway 192.168.0.254
-dns-nameservers 8.8.8.8
-# VMs Networks with OVS in tunnel mode
-auto eth1
-iface eth1 inet static
-address 10.0.0.3
-netmask 255.255.255.0
-# Public Bridge
-auto eth2
-iface eth2 inet manual
+iface eth0 inet manual
 up ifconfig $IFACE 0.0.0.0 up
 up ip link set $IFACE promisc on
 down ip link set $IFACE promisc off
 down ifconfig $IFACE down
+# The primary network interface
+
+auto eth1 
+iface eth1 inet manual
+up ifconfig $IFACE 0.0.0.0 up
+up ip link set $IFACE promisc on
+down ip link set $IFACE promisc off
+down ifconfig $IFACE down
+
+auto br-ex
+#auto eth0
+iface br-ex inet static
+#iface eth0 inet static
+  address 192.168.117.140
+	netmask 255.255.255.224
+	network 192.168.117.128
+	broadcast 192.168.117.159
+	gateway 192.168.117.158
+	# dns-* options are implemented by the resolvconf package, if installed
+	dns-nameservers 194.85.4.53
+	dns-search stu.neva.ru
+
+auto br-eth1
+iface br-eth1 inet static
+	address 10.0.1.0
+	netmask 255.0.0.0
 </pre>
 
 = Attributes =
