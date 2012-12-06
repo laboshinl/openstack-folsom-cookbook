@@ -78,5 +78,6 @@ service "nova-compute" do
 	supports :status => true, :restart => true, :start => true 
 end
 
+include_recipe "compute-node::ntp"
 #include_recipe "compute-node::nfs"
 

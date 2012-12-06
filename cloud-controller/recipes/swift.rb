@@ -98,6 +98,7 @@ template "/etc/swift/account-server/#{num}.conf" do
    		:num => "#{num}" 
   	})
 	end
+
 bash "create" do
 	code <<-CODE
 	cd /etc/swift/

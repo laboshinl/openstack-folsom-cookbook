@@ -31,6 +31,10 @@ package "mysql-server-5.5" do
 	action :install
 end
 
+package "mysql-server" do
+	action :install
+end
+
 service "mysql" do
 	action :nothing
 	supports :status => true, :restart => true, :start => true  

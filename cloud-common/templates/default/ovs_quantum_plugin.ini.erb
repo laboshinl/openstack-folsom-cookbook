@@ -75,7 +75,7 @@ network_vlan_ranges = physnet1:1:4094
 #
 # Default: bridge_mappings =
 # Example: bridge_mappings = physnet1:br-eth1
-bridge_mappings = physnet1:br-eth1
+bridge_mappings = physnet1:br-<%= node[:controller][:private_interface] %>
 [AGENT]
 # Agent's polling interval in seconds
 polling_interval = 2
