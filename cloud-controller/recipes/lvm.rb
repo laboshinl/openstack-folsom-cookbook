@@ -18,6 +18,7 @@ end
 #end
 
 bash "lvcreate" do
+	not_if("lvdisplay | grep images")
 	code <<-CREATE
 		unit=$(vgdisplay #{node[:controller][:vg_name]} | grep Free |  awk '{print $8}')
 		size=$(vgdisplay #{node[:controller][:vg_name]} | grep Free |  awk '{print $7}')
@@ -38,6 +39,7 @@ bash "lvcreate" do
 end
 #echo "/dev/#{node[:controller][:vg_name]}/swift /mnt/swift_backend xfs loop,noatime,nodiratime,nobarrier,logbufs=8 0 0" >> /etc/fstab
 bash "mount" do
+	not_if("grep images /etc/fstab")
 	code <<-MOUNT
 		echo "/dev/#{node[:controller][:vg_name]}/instances /var/lib/nova/instances ext4 rw,user,exec 0 0" >> /etc/fstab
         	echo "/dev/#{node[:controller][:vg_name]}/images /var/lib/glance ext4 rw,user,exec 0 0" >> /etc/fstab

@@ -15,23 +15,16 @@ bash "edit_interfaces" do
 	REPLACE
 end
 
-bash "append" do
-	not_if("grep br-ex /etc/network/interfaces")
-	code <<-APPEND
-cat >> /etc/network/interfaces << EOF
-auto #{node[:controller][:public_interface]}
-iface #{node[:controller][:public_interface]} inet manual
-        up ifconfig \$IFACE 0.0.0.0 up
-        up ip link set \$IFACE promisc on
-        down ip link set \$IFACE promisc off
-        down ifconfig \$IFACE down
+template "/tmp/interfaces" do
+	source "interfaces.erb"
+	owner "root"
+	group "root"
+	mode "644"
+end
 
-auto #{node[:controller][:private_interface]}
-iface #{node[:controller][:private_interface]} inet manual
-        up ifconfig \$IFACE 0.0.0.0 up
-        up ip link set \$IFACE promisc on
-        down ip link set \$IFACE promisc off
-        down ifconfig \$IFACE down
-EOF
-APPEND
+bash "append" do
+	not_if("grep IFACE /etc/network/interfaces")
+	code <<-APPEND
+	cat /tmp/interfaces >> /etc/network/interfaces
+	APPEND
 end

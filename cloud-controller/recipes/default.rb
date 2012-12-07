@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 include_recipe "cloud-controller::ntp"
-#include_recipe "cloud-controller::nfs"      
+include_recipe "cloud-controller::nfs"      
 include_recipe "cloud-controller::mysql"    
 include_recipe "cloud-controller::rabbitmq" 
 include_recipe "cloud-controller::keystone" 

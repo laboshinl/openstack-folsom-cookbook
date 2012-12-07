@@ -59,6 +59,33 @@ bash "add-port-eth1" do
 	ADD
 end
 
+# FIX ME! DOES NOT WORK WITHOUT DELETING br-ex AND ADDING IT AGAIN #########################
+bash "del-bridge-ex" do	
+	code <<-CREATE
+	ovs-vsctl del-br br-ex
+	CREATE
+end
+
+bash "create-bridge-ex" do
+	not_if("ovs-vsctl list-br | grep br-ex")
+	code <<-CREATE
+	ovs-vsctl add-br br-ex
+	CREATE
+end
+
+bash "add-port-eth0" do
+	not_if("ovs-vsctl list-ports br-ex | grep #{node[:controller][:public_interface]}")
+	code <<-ADD
+	ovs-vsctl add-port br-ex #{node[:controller][:public_interface]}
+	ADD
+end
+#############################################################################################
+
+
+service "networking" do
+	action :restart
+end
+
 package "quantum-plugin-openvswitch-agent" do
 	action :install
 end

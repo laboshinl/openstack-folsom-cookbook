@@ -79,5 +79,5 @@ service "nova-compute" do
 end
 
 include_recipe "compute-node::ntp"
-#include_recipe "compute-node::nfs"
+include_recipe "compute-node::nfs"
 
