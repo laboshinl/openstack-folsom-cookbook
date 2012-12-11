@@ -10,12 +10,12 @@ package "xfsprogs" do
 	action :install
 end
 
-#directory "/mnt/swift_backend" do
-#	owner "root"
-#	group "root"
-#	mode 0755
-#	recursive true
-#end
+directory "/srv/" do
+	owner "root"
+	group "root"
+	mode 0755
+	recursive true
+end
 
 bash "lvcreate" do
 	not_if("lvdisplay | grep images")
@@ -27,6 +27,8 @@ bash "lvcreate" do
 		instances=$(echo "$size*0.4" | bc)
 		lvcreate -n instances -L 0$instances$unit #{node[:controller][:vg_name]}
 		swift=$(echo "$size*0.15" | bc)
+		lvcreate -n swift -L 0$swift$unit #{node[:controller][:vg_name]}
+		mkfs.xfs  /dev/#{node[:controller][:vg_name]}/swift
 		mkfs.ext4 /dev/#{node[:controller][:vg_name]}/instances
 		mkfs.ext4 /dev/#{node[:controller][:vg_name]}/images
 		mount /dev/#{node[:controller][:vg_name]}/images /mnt
@@ -37,10 +39,11 @@ bash "lvcreate" do
 		umount /mnt
 	CREATE
 end
-#echo "/dev/#{node[:controller][:vg_name]}/swift /mnt/swift_backend xfs loop,noatime,nodiratime,nobarrier,logbufs=8 0 0" >> /etc/fstab
+
 bash "mount" do
 	not_if("grep images /etc/fstab")
 	code <<-MOUNT
+		echo "/dev/#{node[:controller][:vg_name]}/swift /srv xfs loop,noatime,nodiratime,nobarrier,logbufs=8 0 0" >> /etc/fstab
 		echo "/dev/#{node[:controller][:vg_name]}/instances /var/lib/nova/instances ext4 rw,user,exec 0 0" >> /etc/fstab
         	echo "/dev/#{node[:controller][:vg_name]}/images /var/lib/glance ext4 rw,user,exec 0 0" >> /etc/fstab
 		mount -a

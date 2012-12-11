@@ -7,18 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
-["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy", "novnc"].each do |pkg|
+["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy", "novnc", "nova-network"].each do |pkg|
 	package pkg do
 		action :install
 	end
 end
-
-#["nova-common", "python-nova", "python-novaclient"].each do |pkg|
-#	package pkg do
-#		action :install
-#	end
-#end
-
 
 template "/etc/nova/api-paste.ini" do
 	source "nova/api-paste.ini.erb"
@@ -46,3 +39,9 @@ end
 	end
 end
 
+bash "network" do
+	not_if("nova-manage network list | grep 172.16.0.0")
+	code <<-CREATE
+		nova-manage network create private 172.16.0.0/16 256 256 --vlan=100
+	CREATE
+end 

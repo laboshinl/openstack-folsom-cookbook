@@ -27,6 +27,7 @@ bash "create-bridge-int" do
 	CREATE
 end
 
+=begin
 # br-ex is used for accessing internet.
 bash "create-bridge-ex" do
 	not_if("ovs-vsctl list-br | grep br-ex")
@@ -42,6 +43,7 @@ bash "add-port-eth0" do
 	ovs-vsctl add-port br-ex #{node[:controller][:public_interface]}
 	ADD
 end
+
 
 # br-eth1 is used for VM communication
 bash "create-bridge-eth1" do
@@ -108,6 +110,6 @@ service "quantum-plugin-openvswitch-agent" do
 	action :restart
 end
 
-
+=end
 
 

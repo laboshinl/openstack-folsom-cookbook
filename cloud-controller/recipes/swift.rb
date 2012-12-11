@@ -4,13 +4,6 @@
 	end
 end
 
-directory "/srv/" do
-	mode "0755"
-	owner "swift"
-	group "swift"
-	action :create
-end
-
 directory "/run/swift/" do
 	mode "0775"
 	owner "swift"
@@ -21,7 +14,7 @@ end
 	
 
 %w{node1 node2 node3 node4}.each do |dir|
-   directory "/mnt/swift-backend/#{dir}/device/" do
+   directory "/srv/#{dir}/device/" do
 	mode "0775"
 	owner "swift"
 	group "swift"
@@ -61,7 +54,7 @@ template "/etc/rsyncd.conf" do
 	mode "0755"
 end
 
-bash "what" do
+bash "create_builders" do
 code <<-EOF
 cd /etc/swift
 swift-ring-builder object.builder create 18 3 1
@@ -71,7 +64,7 @@ EOF
 end
 
 %w{1 2 3 4}.each do |num|
-%x[ln -s "\/mnt\/swift_backend\/node#{num}" "\/srv\/node#{num}"]
+#%x[ln -s "\/mnt\/swift_backend\/node#{num}" "\/srv\/node#{num}"]
 template "/etc/swift/container-server/#{num}.conf" do
 	source "swift/container.conf.erb"
 	owner "swift"
@@ -100,6 +93,7 @@ template "/etc/swift/account-server/#{num}.conf" do
 	end
 
 bash "create" do
+	ignore_failure true
 	code <<-CODE
 	cd /etc/swift/
 	swift-ring-builder object.builder add z"#{num}"-127.0.0.1:60"#{num}"0/device 1
