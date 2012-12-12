@@ -9,7 +9,7 @@ end
 
 template "/etc/ntp.conf" do
 	not_if ("grep 127.127.1.0 /etc/ntp.conf")
-	source "ntp/ntp.conf.erb"
+	source "ntp.conf.erb"
 	owner "root"
 	group "root"
 	mode "0644"
