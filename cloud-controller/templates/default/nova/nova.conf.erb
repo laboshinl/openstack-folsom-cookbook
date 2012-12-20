@@ -1,5 +1,10 @@
 [DEFAULT]
 
+# CloudPipe #
+vpn_image_id=<%= @cloudpipe %>
+use_project_ca=true
+cnt_vpn_clients=5
+
 # SQL Connection #
 sql_connection=mysql://root:<%= node[:mysql][:password] %>@<%= node[:controller][:private_ip] %>/nova
 
@@ -38,6 +43,9 @@ public_interface=<%= node[:controller][:public_interface] %>
 vlan_interface=<%= node[:controller][:private_interface] %>
 flat_injected=False
 force_dhcp_release=True
+
+fixed_range=172.16.0.0/16
+routing_source_ip=<%= node[:controller][:public_ip] %>
 
 # Cinder #
 volume_api_class=nova.volume.cinder.API

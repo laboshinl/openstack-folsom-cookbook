@@ -20,11 +20,14 @@ template "/etc/nova/api-paste.ini" do
 	mode "0600"
 end
 
+cloudpipe=%x[source /tmp/adminrc.sh && glance ingex | grep cloudpipe | awk '{print $1}']
+
 template "/etc/nova/nova.conf" do
 	source "nova/nova.conf.erb"
 	owner "nova"
 	group "nova"
 	mode "0600"
+	variables :cloudpipe => "#{cloudpipe}"
 end
 
 bash "database" do
@@ -33,7 +36,7 @@ bash "database" do
 	SQL
 end 
 
-["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy"].each do |pkg|
+["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy", "nova-network"].each do |pkg|
 	service pkg do
 		action :restart
 	end
