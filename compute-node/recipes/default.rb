@@ -9,8 +9,8 @@
 
 bash "delete" do
 	code <<-DELETE
+	if [ -f /etc/nova/nova.conf ]; then mv /etc/nova/nova.conf /etc/nova/nova.old.conf; fi
 	if [ -f /etc/nova/nova-compute.conf ]; then rm /etc/nova/nova-compute.conf; fi
-	if [ -f /etc/nova/nova.conf ]; then rm /etc/nova/nova.conf; fi
 	if [ -f /etc/nova/api-paste.ini ]; then rm /etc/nova/api-paste.ini; fi
 	DELETE
 end
@@ -38,6 +38,12 @@ template "/etc/nova/nova.conf" do
 	owner "nova"
 	group "nova"
 	mode "0600"
+end
+
+bash "recover" do
+	code <<-RECOVER
+	if [ -f /etc/nova/nova.old.conf ]; then mv /etc/nova/nova.old.conf /etc/nova/nova.conf; fi
+	RECOVER
 end
 
 template "/etc/libvirt/qemu.conf" do

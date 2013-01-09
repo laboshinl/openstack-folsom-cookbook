@@ -20,14 +20,24 @@ template "/etc/nova/api-paste.ini" do
 	mode "0600"
 end
 
-cloudpipe=%x[source /tmp/adminrc.sh && glance ingex | grep cloudpipe | awk '{print $1}']
-
 template "/etc/nova/nova.conf" do
 	source "nova/nova.conf.erb"
 	owner "nova"
 	group "nova"
 	mode "0600"
-	variables :cloudpipe => "#{cloudpipe}"
+end
+
+bash "cloudpipe_image_id" do
+	code <<-IMAGE	
+	ID=$(source /tmp/adminrc.sh && glance index | grep cloudpipe | awk '{print $1}')
+	sed -i "s/cloudpipe_image/$ID/g" /etc/nova/nova.conf
+	IMAGE
+end
+template "/usr/share/pyshared/nova/cloudpipe/pipelib.py" do
+	source "nova/pipelib.py"
+	owner "root"
+	group "root"
+	mode "644"
 end
 
 bash "database" do

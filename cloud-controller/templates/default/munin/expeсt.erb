@@ -1,0 +1,7 @@
+#!/usr/bin/expect -f
+spawn htpasswd -c /etc/munin/tester admin
+expect "*password*"
+send  "<%= node[:keystone][:password] %>\r"
+expect "*password*"
+send  "<%= node[:keystone][:password] %>\r"
+

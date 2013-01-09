@@ -27,7 +27,18 @@ template "/etc/munin/munin.conf" do
 	mode "0644"
 end
 
-%x[expect -c 'spawn htpasswd -c /etc/munin/munin-htpasswd test; expect \"New password:\" {send \"#{node[:keystone][:password]}\r\"}; expect \"Re-type new password:\" {send \"#{node[:keystone][:password]}\r\"; interact}']
+template "/tmp/expect" do
+	source "munin/expect.erb"
+	owner "root"
+	group "root"
+	mode "0700"
+end
+
+bash "passwd" do
+	code <<-EXPECT
+	/tmp/expect
+	EXPECT
+end
 
 %w[apache2 munin-node].each do |srv|
 	service srv do

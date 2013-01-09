@@ -1,0 +1,8 @@
+#!/usr/bin/expect -f
+spawn htpasswd -c /etc/munin/munin-htpasswd admin
+expect "New password:"
+send  "<%= node[:keystone][:password] %>\r"
+expect "Re-type new password:"
+send  "<%= node[:keystone][:password] %>\r"
+expect eof
+
