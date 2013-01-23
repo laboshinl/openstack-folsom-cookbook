@@ -11,10 +11,12 @@ execute "apt-get update" do
 	action :nothing
 end
 
-bash "addkey" do
+bash "addkeys" do
 	code <<-CODE
 	gpg --keyserver keyserver.ubuntu.com --recv EC4926EA
 	gpg --export --armor EC4926EA | apt-key add -
+	gpg --keyserver keyserver.ubuntu.com --recv C2458988
+	gpg --export --armor C2458988 | apt-key add -
 	CODE
 end
 	 

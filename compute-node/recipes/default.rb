@@ -6,6 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+include_recipe "compute-node::mfs"
 
 bash "delete" do
 	code <<-DELETE
@@ -16,6 +17,10 @@ bash "delete" do
 end
 
 package "nova-compute" do
+	action :install
+end
+
+package "nova-network" do
 	action :install
 end
 
@@ -74,9 +79,23 @@ template "/etc/default/libvirt-bin" do
 	mode "0644"
 end
 
+bash "mount" do
+	not_if("grep mfsmaster /etc/fstab")
+	code <<-MOUNT
+		echo "mfsmount 	/var/lib/nova/instances fuse mfsmaster=mfsmaster,_netdev 0 0" >> /etc/fstab
+		mount -a
+		chown nova:nova /var/lib/nova/instances -R
+		chmod 755 /var/lib/nova/instances -R
+	MOUNT
+end
+
 service "libvirt-bin" do
 	action :restart
 	supports :status => true, :restart => true, :start => true 
+end
+
+service "nova-network" do
+	action :restart
 end
 
 service "nova-compute" do
@@ -85,5 +104,5 @@ service "nova-compute" do
 end
 
 include_recipe "compute-node::ntp"
-include_recipe "compute-node::nfs"
+
 

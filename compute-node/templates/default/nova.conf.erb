@@ -1,5 +1,5 @@
 [DEFAULT]
-
+multi_host=True
 # SQL Connection #
 sql_connection=mysql://root:<%= node[:mysql][:password] %>@<%= node[:controller][:private_ip] %>/nova
 

@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy", "novnc", "nova-network"].each do |pkg|
+["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy", "nova-network", "novnc"].each do |pkg|
 	package pkg do
 		action :install
 	end
@@ -45,6 +45,14 @@ bash "database" do
 		nova-manage db sync
 	SQL
 end 
+
+directory "/home/nova" do
+	owner "nova"
+	group "nova"
+	mode 0755
+	recursive true
+end
+ 
 
 ["nova-cert", "nova-api", "nova-scheduler", "nova-consoleauth", "nova-novncproxy", "nova-network"].each do |pkg|
 	service pkg do

@@ -32,6 +32,16 @@ bash "db_sync" do
 	SYNC
 end
 
+bash "mount" do
+	not_if("grep images /etc/fstab")
+	code <<-MOUNT
+        	echo "/dev/#{node[:controller][:vg_name]}/images /var/lib/glance ext4 rw,user,exec 0 0" >> /etc/fstab
+		mount -a
+		chown glance:glance /var/lib/glance -R
+		chmod 755 /var/lib/glance -R
+	MOUNT
+end
+
 service "glance-api" do
 	action :restart 
 end
@@ -39,6 +49,12 @@ end
 service "glance-registry" do
 	action :restart 
 end
+
+#bash "bug" do
+#	code <<-FIX
+#	find /usr/lib/python2.7/dist-packages/python_glanceclient* -name requires.txt -exec sed -i "s/0.2/0.5/g" {} \;
+#	FIX
+#end
 
 bash "image_upload" do
 	code <<-UPLOAD
