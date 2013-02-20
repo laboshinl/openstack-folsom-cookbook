@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-if (node[:moosefs][:enabled] = "true") then
+if (node[:moosefs][:enabled] == "true") then
 	include_recipe "compute-node::mfs"
 end
 
@@ -77,7 +77,7 @@ template "/etc/default/libvirt-bin" do
 	mode "0644"
 end
 
-if (node[:moosefs][:enabled] = "true") then
+if (node[:moosefs][:enabled] == "true") then
 	bash "mount" do
 		not_if("grep mfsmaster /etc/fstab")
 		code <<-MOUNT

@@ -9,7 +9,7 @@
 node.set[:controller][:private_interface]=%x[ip a | grep #{node[:controller][:private_ip]} | grep inet | awk '{print $NF}'][0..-2]
 node.set[:controller][:public_interface]=%x[ip a | grep #{node[:controller][:public_ip]} | grep inet | awk '{print $NF}'][0..-2]
 include_recipe "cloud-controller::ntp"
-if (node[:moosefs][:enabled] = "true") then
+if (node[:moosefs][:enabled] == "true") then
 	include_recipe "cloud-controller::mfs"  
 end
 include_recipe "cloud-controller::mysql"    

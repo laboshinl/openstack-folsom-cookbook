@@ -56,7 +56,7 @@ bash "lvcreate" do
 	CREATE
 end
 
-if (node[:moosefs][:enabled] = "true") then
+if (node[:moosefs][:enabled] == "true") then
 	bash "mount" do
 		not_if("grep swift /etc/fstab")
 		code <<-MOUNT
@@ -81,6 +81,6 @@ include_recipe "cloud-common::ip_forwarding"
 include_recipe "cloud-common::folsom-repo"
 include_recipe "cloud-common::openvswitch"
 include_recipe "cloud-common::python-mysql"
-if (node[:moosefs][:enabled] = "true") then
+if (node[:moosefs][:enabled] == "true") then
 	include_recipe "cloud-common::mfs"
 end
