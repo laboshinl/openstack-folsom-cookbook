@@ -1,5 +1,6 @@
 [DEFAULT]
-multi_host=True
+#multi_host=True
+#send_arp_for_ha=true
 # CloudPipe #
 vpn_image_id=cloudpipe_image
 use_project_ca=true
@@ -55,7 +56,7 @@ glance_api_servers=<%= node[:controller][:public_ip] %>:9292
 image_service=nova.image.glance.GlanceImageService
 
 # novnc #
-novnc_enable=true
+novnc_enabled=true
 novncproxy_base_url=http://<%= node[:controller][:public_ip] %>:6080/vnc_auto.html
 vncserver_proxyclient_address=127.0.0.1
 vncserver_listen=0.0.0.0

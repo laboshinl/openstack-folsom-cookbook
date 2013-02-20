@@ -63,6 +63,6 @@ end
 bash "network" do
 	not_if("nova-manage network list | grep 172.16.0.0")
 	code <<-CREATE
-		nova-manage network create private 172.16.0.0/16 256 256 --vlan=100
+		nova-manage network create private 172.16.0.0/16 256 256 --vlan=100 
 	CREATE
 end 

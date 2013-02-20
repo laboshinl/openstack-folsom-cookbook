@@ -20,9 +20,14 @@ package "nova-compute" do
 	action :install
 end
 
-package "nova-network" do
-	action :install
-end
+#package "nova-network" do
+#	action :install
+#end
+
+#package "nova-api-metadata" do
+#	not_if("ls /etc/init.d | grep nova-api")
+#	action :install
+#end
 
 template "/etc/nova/nova-compute.conf" do
 	source "nova-compute.conf.erb"
@@ -94,9 +99,9 @@ service "libvirt-bin" do
 	supports :status => true, :restart => true, :start => true 
 end
 
-service "nova-network" do
-	action :restart
-end
+#service "nova-network" do
+#	action :restart
+#end
 
 service "nova-compute" do
 	action :restart
@@ -104,5 +109,6 @@ service "nova-compute" do
 end
 
 include_recipe "compute-node::ntp"
+include_recipe "compute-node::munin"
 
 
