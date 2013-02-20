@@ -8,4 +8,6 @@ set[:keystone][:token]="cl0udAdmin"
 set[:keystone][:password]="cl0udAdmin"
 set[:keystone][:email]="piligrim@neva.ru"
 
+set[:moosefs][:enabled]="false"
+
 set[:dns][:zone]="cloudtest.stu.neva.ru"

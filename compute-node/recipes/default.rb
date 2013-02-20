@@ -6,7 +6,9 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-include_recipe "compute-node::mfs"
+if (node[:moosefs][:enabled] = "true") then
+	include_recipe "compute-node::mfs"
+end
 
 bash "delete" do
 	code <<-DELETE
@@ -19,15 +21,6 @@ end
 package "nova-compute" do
 	action :install
 end
-
-#package "nova-network" do
-#	action :install
-#end
-
-#package "nova-api-metadata" do
-#	not_if("ls /etc/init.d | grep nova-api")
-#	action :install
-#end
 
 template "/etc/nova/nova-compute.conf" do
 	source "nova-compute.conf.erb"
@@ -84,24 +77,32 @@ template "/etc/default/libvirt-bin" do
 	mode "0644"
 end
 
-bash "mount" do
-	not_if("grep mfsmaster /etc/fstab")
-	code <<-MOUNT
-		echo "mfsmount 	/var/lib/nova/instances fuse mfsmaster=mfsmaster,_netdev 0 0" >> /etc/fstab
-		mount -a
-		chown nova:nova /var/lib/nova/instances -R
-		chmod 755 /var/lib/nova/instances -R
-	MOUNT
+if (node[:moosefs][:enabled] = "true") then
+	bash "mount" do
+		not_if("grep mfsmaster /etc/fstab")
+		code <<-MOUNT
+			echo "mfsmount 	/var/lib/nova/instances fuse mfsmaster=mfsmaster,_netdev 0 0" >> /etc/fstab
+			mount -a
+			chown nova:nova /var/lib/nova/instances -R
+			chmod 755 /var/lib/nova/instances -R
+		MOUNT
+	end
+else
+	bash "mount" do
+		not_if("grep mfsmaster /etc/fstab")
+		code <<-MOUNT
+			echo "/dev/#{node[:controller][:vg_name]}/instances /var/lib/nova/instances ext4 rw,user,exec 0 0" >> /etc/fstab
+			mount -a
+			chown nova:nova /var/lib/nova/instances -R
+			chmod 755 /var/lib/nova/instances -R
+		MOUNT
+	end
 end
 
 service "libvirt-bin" do
 	action :restart
 	supports :status => true, :restart => true, :start => true 
 end
-
-#service "nova-network" do
-#	action :restart
-#end
 
 service "nova-compute" do
 	action :restart

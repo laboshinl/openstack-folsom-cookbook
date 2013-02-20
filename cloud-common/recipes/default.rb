@@ -56,17 +56,31 @@ bash "lvcreate" do
 	CREATE
 end
 
-bash "mount" do
-	not_if("grep swift /etc/fstab")
-	code <<-MOUNT
-		echo "/dev/#{node[:controller][:vg_name]}/swift /srv xfs loop,noatime,nodiratime,nobarrier,logbufs=8 0 0" >> /etc/fstab
-        	echo "/dev/#{node[:controller][:vg_name]}/instances /var/lib/mfschunk ext4 rw,user,exec 0 0" >> /etc/fstab
-		mount -a
-	MOUNT
+if (node[:moosefs][:enabled] = "true") then
+	bash "mount" do
+		not_if("grep swift /etc/fstab")
+		code <<-MOUNT
+			echo "/dev/#{node[:controller][:vg_name]}/swift /srv xfs loop,noatime,nodiratime,nobarrier,logbufs=8 0 0" >> /etc/fstab
+			echo "/dev/#{node[:controller][:vg_name]}/instances /var/lib/mfschunk ext4 rw,user,exec 0 0" >> /etc/fstab
+			mount -a
+		MOUNT
+	end
+
+else 
+	bash "mount" do
+		not_if("grep swift /etc/fstab")
+		code <<-MOUNT
+			echo "/dev/#{node[:controller][:vg_name]}/swift /srv xfs loop,noatime,nodiratime,nobarrier,logbufs=8 0 0" >> /etc/fstab
+			mount -a
+		MOUNT
+	end	
 end
+
 
 include_recipe "cloud-common::ip_forwarding"
 include_recipe "cloud-common::folsom-repo"
 include_recipe "cloud-common::openvswitch"
 include_recipe "cloud-common::python-mysql"
-include_recipe "cloud-common::mfs"
+if (node[:moosefs][:enabled] = "true") then
+	include_recipe "cloud-common::mfs"
+end
