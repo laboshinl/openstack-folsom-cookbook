@@ -47,7 +47,7 @@ bash "lvcreate" do
 	code <<-CREATE
 		unit=$(vgdisplay #{node[:controller][:vg_name]} | grep Free |  awk '{print $8}')
 		size=$(vgdisplay #{node[:controller][:vg_name]} | grep Free |  awk '{print $7}')
-		instances=$(echo "$size*0.5" | bc)
+		instances=$(echo "$size*0.4" | bc)
 		lvcreate -n instances -L 0$instances$unit #{node[:controller][:vg_name]}
 		swift=$(echo "$size*0.1" | bc)
 		lvcreate -n swift -L 0$swift$unit #{node[:controller][:vg_name]}

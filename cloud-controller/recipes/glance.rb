@@ -69,7 +69,7 @@ bash "image_upload" do
                 if [ -n "$exist" ] ; then
                                 echo "Already loaded, doing nothing"
                         else
-				glance image-create --name cloudpipe --is-public true --container-format bare --disk-format qcow2 --copy-from http://195.208.117.179/cloudpipe.img
+				glance image-create --name cloudpipe --is-public true --container-format bare --disk-format qcow2 --copy-from http://195.208.117.179/cloudpipe/disk.img
                 fi
 	UPLOAD
 end
