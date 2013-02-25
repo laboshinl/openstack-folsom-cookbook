@@ -32,15 +32,9 @@ directory "/srv/" do
 	recursive true
 end
 
-directory "/var/lib/mfschunk" do
-	owner "root"
-	group "root"
-	mode 0755
-	recursive true
-end
-
-#get name of the largest lvm
+# Get name of the largest lvm
 node.set[:controller][:vg_name]=%x[vgs --sort -size --rows | grep VG -m 1 | awk '{print $2}'][0..-2]
+
 
 bash "lvcreate" do
 	not_if("lvdisplay | grep instances")

@@ -5,3 +5,9 @@ bash "edit hosts file" do
 	EOF
 end
 
+directory "/var/lib/mfschunk" do
+	owner "root"
+	group "root"
+	mode 0755
+	recursive true
+end

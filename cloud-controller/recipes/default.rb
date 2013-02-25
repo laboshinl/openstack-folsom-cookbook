@@ -6,9 +6,9 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-node.set[:controller][:private_interface]=%x[ip a | grep #{node[:controller][:private_ip]} | grep inet | awk '{print $NF}'][0..-2]
-node.set[:controller][:public_interface]=%x[ip a | grep #{node[:controller][:public_ip]} | grep inet | awk '{print $NF}'][0..-2]
-include_recipe "cloud-controller::ntp"
+#node.set[:controller][:private_interface]=%x[ip a | grep #{node[:controller][:private_ip]} | grep inet | awk '{print $NF}'][0..-2]
+#node.set[:controller][:public_interface]=%x[ip a | grep #{node[:controller][:public_ip]} | grep inet | awk '{print $NF}'][0..-2]
+#include_recipe "cloud-controller::ntp"
 if (node[:moosefs][:enabled] == "true") then
 	include_recipe "cloud-controller::mfs"  
 end
